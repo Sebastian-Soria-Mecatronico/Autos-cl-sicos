@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garaje de Leyendas - Carros Clásicos</title>
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://unsplash.com') no-repeat center/cover;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #d4af37; /* Color Oro Viejo */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* --- CUADRÍCULA DE CARROS --- */
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tarjeta-carro {
+            background-color: #262626;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-carro:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contenedor de la Imagen */
+        .imagen-contenedor {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #333;
+            cursor: pointer;
+        }
+
+        .imagen-contenedor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* Efecto de zoom y texto flotante al pasar el mouse por la foto */
+        .imagen-contenedor:hover img {
+            transform: scale(1.08);
+        }
+
+        .imagen-contenedor::after {
+            content: "🔍 Ampliar";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .imagen-contenedor:hover::after {
+            opacity: 1;
+        }
+
+        /* Detalle de Especificaciones */
+        .info-carro {
+            padding: 20px;
+        }
+
+        .info-carro h2 {
+            color: #d4af37;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+
+        .especificaciones {
+            list-style: none;
+        }
+
+        .especificaciones li {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+
+        .especificaciones strong {
+            color: #a8a8a8;
+        }
+
+        /* --- MODAL (IMAGEN EXPANDIDA) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.activo {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-contenido {
+            max-width: 85%;
+            max-height: 85%;
+            border-radius: 4px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.activo .modal-contenido {
+            transform: scale(1);
+        }
+
+        .boton-cerrar {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .boton-cerrar:hover {
+            color: #d4af37;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Garaje de Leyendas</h1>
+        <p>Una colección exclusiva de los iconos automotrices más memorables de la historia</p>
+    </header>
+
+    <main class="catalogo">
+
+        <!-- CARRO 1 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Porsche Classic">
+            </div>
+            <div class="info-carro">
+                <h2>Porsche Carrera (1973)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 2.7L Boxer de 6 cilindros</li>
+                    <li><strong>Potencia:</strong> 210 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 245 km/h</li>
+                    <li><strong>Origen:</strong> Alemania</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- CARRO 2 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Ferrari 250 GTO">
+            </div>
+            <div class="info-carro">
+                <h2>Ferrari 250 GTO (1962)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 3.0L V12 Tipo 168 Comp</li>
+                    <li><strong>Potencia:</strong> 300 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 280 km/h</li>
+                    <li><strong>Origen:</strong> Italia</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- CARRO 3 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Chevrolet Corvette C2">
+            </div>
+            <div class="info-carro">
+                <h2>Chevrolet Corvette C2 (1963)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 5.4L V8 Small-Block</li>
+                    <li><strong>Potencia:</strong> 360 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 230 km/h</li>
+                    <li><strong>Origen:</strong> Estados Unidos</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- CARRO 4 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Ford Mustang Fastback">
+            </div>
+            <div class="info-carro">
+                <h2>Ford Mustang Fastback (1967)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 4.7L V8 Windsor</li>
+                    <li><strong>Potencia:</strong> 225 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 200 km/h</li>
+                    <li><strong>Origen:</strong> Estados Unidos</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- CARRO 5 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Aston Martin DB5">
+            </div>
+            <div class="info-carro">
+                <h2>Aston Martin DB5 (1964)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 4.0L de 6 cilindros en línea</li>
+                    <li><strong>Potencia:</strong> 282 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 233 km/h</li>
+                    <li><strong>Origen:</strong> Reino Unido</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- CARRO 6 -->
+        <article class="tarjeta-carro">
+            <div class="imagen-contenedor">
+                <img src="https://unsplash.com" alt="Mercedes-Benz 300 SL">
+            </div>
+            <div class="info-carro">
+                <h2>Mercedes-Benz 300 SL (1954)</h2>
+                <ul class="especificaciones">
+                    <li><strong>Motor:</strong> 3.0L de 6 cilindros (Alas de Gaviota)</li>
+                    <li><strong>Potencia:</strong> 240 CV</li>
+                    <li><strong>Velocidad Máx:</strong> 260 km/h</li>
+                    <li><strong>Origen:</strong> Alemania</li>
+                </ul>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- VENTANA MODAL PARA EXPANDIR LA IMAGEN -->
+    <div class="modal" id="miModal">
+        <span class="boton-cerrar" id="cerrar">&times;</span>
+        <img class="modal-contenido" id="imagenExpandida" src="" alt="Imagen grande">
+    </div>
+
+    <!-- --- COMPORTAMIENTO JAVASCRIPT --- -->
+    <script>
+        // Seleccionamos los elementos clave del DOM
+        const modal = document.getElementById('miModal');
+        const imgModal = document.getElementById('imagenExpandida');
+        const botonCerrar = document.getElementById('cerrar');
